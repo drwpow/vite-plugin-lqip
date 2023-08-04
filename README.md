@@ -2,9 +2,9 @@
 
 Low-quality image placeholder (LQIP) generator for [Vite](https://vitejs.dev/). Works in React, Preact, Svelte, SvelteKit, Vue, Astro, or any setup that uses Vite underneath.
 
-- ✅ Results in a faster loading site
-- ✅ Uses the [SVG “Blur Up” technique](https://css-tricks.com/the-blur-up-technique-for-loading-background-images/) for superior performance & quality
-- ✅ Optimizes referenced images
+- ✅ Inlines images for instant loading
+- ✅ Reduce layout shift by having the placeholders rendered on first paint and sized proportionally
+- ✅ Uses the [SVG “Blur Up” technique](https://css-tricks.com/the-blur-up-technique-for-loading-background-images/) for gorgeous quality (better than CSS blur)
 - ✅ Compatible with [vite-imagetools](https://github.com/JonasKruckenberg/imagetools)
 
 ![](./.github/example-06.png)
@@ -81,7 +81,7 @@ import lqip from './path/to/image.jpg?lqip';
 
 ### With vite-imagetools
 
-This plugin is fully compatible with [vite-imagetools](https://github.com/JonasKruckenberg/imagetools). Just use it as you would normally:
+This plugin is fully compatible with [vite-imagetools](https://github.com/JonasKruckenberg/imagetools). Just use it as you would normally, using the LQIP for the inlined placeholder:
 
 ```tsx
 import lqip from './path/to/image.jpg?lqip';

@@ -48,7 +48,9 @@ const nf = new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 });
 
 // 1. Basic LQIP example
 
-let newHTML = '<h2>vite-plugin-lqip Demo</h2>';
+let newHTML = `<h2>vite-plugin-lqip Demo</h2>
+<p><i>Tip: try <a href="https://developer.chrome.com/docs/devtools/settings/throttling/" target="_blank" rel="noopener noreferrer">throttling your browser</a> to see the loading effect in slow motion.</i></p>
+`;
 
 for (const { img, alt, attr, size } of IMAGES) {
 	const originalSize = size / 1000;
@@ -65,7 +67,7 @@ for (const { img, alt, attr, size } of IMAGES) {
 		</div>
 		<div class="example-img">
 			<figure>
-				<img src="${img.src}" width="${img.width}" height="${img.height}" alt="${alt}" />
+				<img src="${img.src}" width="${img.width}" height="${img.height}" alt="${alt}" style="background-image: url(&quot;${img.lqip}&quot;)" />
 				<figcaption>${attr}</figcaption>
 			</figure>
 		</div>
