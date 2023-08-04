@@ -1,3 +1,5 @@
 .changeset
+.eslintrc.cjs
 .github
+.prettierrc
 example

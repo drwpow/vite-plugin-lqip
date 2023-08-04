@@ -13,6 +13,18 @@
 	"type": "module",
 	"main": "./dist/index.js",
 	"license": "MIT",
+	"keywords": [
+		"lqip",
+		"sqip",
+		"image",
+		"placeholder",
+		"optimization",
+		"sharp",
+		"core web vitals",
+		"first paint",
+		"vite",
+		"performance"
+	],
 	"scripts": {
 		"build": "del dist && tsc",
 		"build:demo": "pnpm run build && cd example && pnpm i && vite build",
