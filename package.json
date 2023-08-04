@@ -12,6 +12,7 @@
 	},
 	"type": "module",
 	"main": "./dist/index.js",
+	"license": "MIT",
 	"scripts": {
 		"build": "del dist && tsc",
 		"build:demo": "pnpm run build && cd example && pnpm i && vite build",
