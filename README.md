@@ -55,7 +55,7 @@ Use this by adding `?lqip` to the end of any URL. It will then return an object 
 {
   /** base-64-encoded image to be inlined (< 1kB, more performant than an extra network request) */
   lqip: string;
-  /** original src location (provided by Vite; respects your settings) */
+  /** your original, UNTOUCHED image URL (handled by Vite, respects all your settings) */
   src: string;
   /** width, in pixels, of full-size image */
   width: number;
@@ -79,9 +79,9 @@ import lqip from './path/to/image.jpg?lqip';
 
 > 💡 Tip: set `width` and `height` on images [to prevent layout shifts](https://www.smashingmagazine.com/2020/03/setting-height-width-images-important-again/)
 
-### With vite-imagetools
+### Optimizing with vite-imagetools
 
-This plugin is fully compatible with [vite-imagetools](https://github.com/JonasKruckenberg/imagetools). Just use it as you would normally, using the LQIP for the inlined placeholder:
+By default, this plugin will **NOT** touch your source images, and it will preserve them exactly as they are. If you want to optimize your images, you can add [vite-imagetools](https://github.com/JonasKruckenberg/imagetools). Just use it as you would normally, using vite-plugin-lqip for the inlined placeholder:
 
 ```tsx
 import lqip from './path/to/image.jpg?lqip';
@@ -92,6 +92,8 @@ import srcSet from './path/to/image.jpg?w=500;700;900;1200&format=webp&as=srcset
   <img src={lqip} width={lqip.width} height={lqip.height} />
 </picture>;
 ```
+
+\_Note: you can’t reuse the same import for both, so `?lqip&w=500;…` won’t work.
 
 ## Config
 
@@ -127,7 +129,11 @@ export default {
 
 ### Comparisons
 
-- [lqip-modern](https://github.com/transitive-bullshit/lqip-modern/) was originally going to power this plugin as [the results speak for itself](https://transitive-bullshit.github.io/lqip-modern/). However, in my testing, I did find better results with slightly-modified options, so I had to manage sharp myself. But is 99% the same technique, and all credit goes to lqip-modern.
+- [lqip-modern](https://github.com/transitive-bullshit/lqip-modern/) was originally going to power this plugin as [the results speak for itself](https://transitive-bullshit.github.io/lqip-modern/). However, in my testing, I did find better results with slightly-modified options, so I had to manage sharp myself. But is 99% the same technique, and all credit goes to lqip-modern. Major differences include:
+  - Blurring is baked into the WebP, rather than [lqip-modern requiring CSS blur](https://github.com/transitive-bullshit/lqip-modern/pull/4). Why do more work?
+  - This defaults to `32px` previews while lqip-modern defaults to `16px`. I found the higher size to be a dramatic improvement in color without adding significant bytes
+  - The `32px` previews, when used as `src`, also are better at keeping the original ratios and reduce layout shift (since images can’t have half-pixel resolutions)
+  - vite-plugin-lqip exposes more of sharp’s config than lqip-modern does which allows better customization (with “best as I can do” defaults, of course)
 - [sqip](https://github.com/axe312ger/sqip) is an interesting alternative approach but much slower to build, and usually yields larger sizes
 - [The “Blur Up” technique](https://css-tricks.com/the-blur-up-technique-for-loading-background-images/) was previously great, but [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) seems to deliver identical quality in much smaller sizes
 - [lqip](https://github.com/zouhir/lqip) was one of the first major inspirations for this approach, but newer techniques have come out
