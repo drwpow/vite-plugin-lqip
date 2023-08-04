@@ -93,7 +93,9 @@ import srcSet from './path/to/image.jpg?w=500;700;900;1200&format=webp&as=srcset
 </picture>;
 ```
 
-\_Note: you can’t reuse the same import for both, so `?lqip&w=500;…` won’t work.
+_Note: you can’t reuse the same import for both, so `?lqip&w=500;…` won’t work._
+
+> ⚠️ In `vite.config.js` be sure to place vite-plugin-lqip **BEFORE** vite-imagetools in your [Vite plugins array](https://vitejs.dev/plugins/). This is safe to do as vite-plugin-lqip will not touch images in any way, and it lets the LQIP be generated from the original source before vite-imagetools ”claims” it for output.
 
 ## Config
 
