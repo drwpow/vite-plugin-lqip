@@ -61,22 +61,22 @@ for (const { img, alt, attr, size } of IMAGES) {
   <div class="example-comparison">
 		<div class="example-img">
 			<figure>
-				<img src="${img.lqip}" width="${img.width}" height="${img.height}" alt="${alt}" />
+				<img width="${img.width}" height="${img.height}" style="background-image: url(&quot;${img.lqip}&quot); background-size:cover;)" />
 				<figcaption>${attr}</figcaption>
 			</figure>
 		</div>
 		<div class="example-img">
 			<figure>
-				<img src="${img.src}" width="${img.width}" height="${img.height}" alt="${alt}" style="background-image: url(&quot;${img.lqip}&quot;)" />
+				<img src="${img.src}" width="${img.width}" height="${img.height}" style="background-image: url(&quot;${img.lqip}&quot); background-size:cover;)" />
 				<figcaption>${attr}</figcaption>
 			</figure>
 		</div>
 	</div>
 	<dl class="example-meta">
-	  <dt>Original</dt>
-		<dd>${nf.format(originalSize)} kB</dd>
 		<dt>LQIP</dt>
 		<dd>${nf.format(lqipSize)} kB</dd>
+	  <dt>Original</dt>
+		<dd>${nf.format(originalSize)} kB</dd>
 	</dl>
 </div>
 `;

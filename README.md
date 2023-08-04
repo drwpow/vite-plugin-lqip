@@ -1,10 +1,10 @@
-# 📺 vite-plugin-lqip
+# ⚡ vite-plugin-lqip
 
-Low-quality image placeholder (LQIP) generator for [Vite](https://vitejs.dev/). Works in React, Preact, Svelte, SvelteKit, Vue, Astro, or any setup that uses Vite underneath.
+Vite plugin to generate low quality image placeholders (LQIP) in any Vite app. Works in React/Preact/Svelte/Vue (Vite app), SvelteKit, Astro, or basically any Vite-powered setup.
 
 - ✅ Inlines images for instant loading
 - ✅ Reduce layout shift by having the placeholders rendered on first paint and sized proportionally
-- ✅ Uses the [SVG “Blur Up” technique](https://css-tricks.com/the-blur-up-technique-for-loading-background-images/) for gorgeous quality (better than CSS blur)
+- ✅ Uses a technique similar to [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) using WebP compression
 - ✅ Compatible with [vite-imagetools](https://github.com/JonasKruckenberg/imagetools)
 
 ![](./.github/example-06.png)
@@ -73,7 +73,7 @@ import lqip from './path/to/image.jpg?lqip';
   src={lqip.src}
   width={lqip.width}
   height={lqip.height}
-  style={{ backgroundImage: `url("${lqip.lqip}")` }}
+  style={{ backgroundImage: `url("${lqip.lqip}")`, backgroundSize: 'cover' }}
 />;
 ```
 
@@ -105,11 +105,18 @@ import lqip from 'vite-plugin-lqip';
 export default {
   plugins: [
     lqip({
-      lqip: {
-        /** Height of LQIP (⚠️ the higher the number, the slower the page load!) */
-        height: 32,
-        /** Width of LQIP (⚠️ the higher the number, the slower the page load!) */
-        width: 32,
+      sharp: {
+        /** @see https://sharp.pixelplumbing.com/api-resize */
+        resize: {
+          width: 64,
+          height: 64,
+          fit: 'inside',
+          kernel: sharp.kernel.cubic,
+        },
+        /** @see https://sharp.pixelplumbing.com/api-output#webp */
+        webp: {
+          smartSubsample: true,
+        },
       },
     }),
   ],
@@ -118,8 +125,15 @@ export default {
 
 ## Other / Misc
 
+### Comparisons
+
+- [lqip-modern](https://github.com/transitive-bullshit/lqip-modern/) was originally going to power this plugin as [the results speak for itself](https://transitive-bullshit.github.io/lqip-modern/). However, in my testing, I did find better results with slightly-modified options, so I had to manage sharp myself. But is 99% the same technique, and all credit goes to lqip-modern.
+- [sqip](https://github.com/axe312ger/sqip) is an interesting alternative approach but much slower to build, and usually yields larger sizes
+- [The “Blur Up” technique](https://css-tricks.com/the-blur-up-technique-for-loading-background-images/) was previously great, but [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) seems to deliver identical quality in much smaller sizes
+- [lqip](https://github.com/zouhir/lqip) was one of the first major inspirations for this approach, but newer techniques have come out
+
 ### Compression
 
-It’s worth noting that the LQIP doesn’t undergo additional compression after sharp. In my testing, I found that at small sizes, compression is negligible and in some cases actually **INCREASED** the size from what sharp output. So because compression functionally does nothing, it’s skipped in this plugin.
+In my testing I found the WebP compression offered by sharp to be more than sufficient. Running images through a post-sharp compression step didn’t yield any additional savings, which is probably to be expected at such small image sizes (not much to optimize). So rather than just slow everything down, sharp’s WebP output is all that’s used.
 
 However, you probably should compress your fullsize images.

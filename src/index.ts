@@ -1,23 +1,23 @@
-import path from 'node:path';
 import mime from 'mime';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import type { Plugin, UserConfig } from 'vite';
-import { lqip } from './lqip.js';
 
 export interface LQIPPluginOptions {
-	lqip?: {
+	sharp?: {
 		/**
-		 * Height of LQIP
-		 * @default 32
-		 * ⚠️ the higher the number, the slower the page load!
+		 * (optional) Provide options to sharp.resize
+		 * @default { width: 32, height: 32, fit: 'inside', kernel: sharp.kernel.cubic }
 		 */
-		height?: number;
+		resize?: sharp.ResizeOptions;
+		/** (optional) provide options to sharp.webp */
+		webp?: sharp.WebpOptions;
 		/**
-		 * Width of LQIP
-		 * @default 32
-		 * ⚠️ the higher the number, the slower the page load!
+		 * (optional) provide blur factor
+		 * @default 1.5
 		 */
-		width?: number;
+		blur?: number;
 	};
 }
 
@@ -39,24 +39,28 @@ export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
 				return null;
 			}
 
-			const img = sharp(new URL(base!, `file://${viteConfig.root}/`).pathname);
+			const img = sharp(fileURLToPath(new URL(base!, `file://${viteConfig.root}/`)));
 			const metadata = await img.metadata();
-			const lqipImg = await img
-				.resize({
-					width: options?.lqip?.width ?? 32,
+			const output = await img
+				.toFormat('webp', {
+					smartSubsample: true,
+					...options?.sharp?.webp,
 				})
-				.toFormat('webp', {})
+				.blur(1.25)
+				.resize({
+					width: 32,
+					height: 32,
+					fit: 'inside',
+					kernel: sharp.kernel.cubic,
+					...options?.sharp?.resize,
+				})
 				.toBuffer();
+			const lqip = `data:${mime.getType(path.extname(base!))};base64,${output.toString('base64')}`;
 
 			return `import src from '${base}?url';
 
 export default {
-	lqip: \`${lqip({
-		height: metadata.height ?? 100,
-		mimetype: mime.getType(path.extname(base!))!,
-		source: lqipImg,
-		width: metadata.width ?? 100,
-	})}\`,
+	lqip: \`${lqip}\`,
 	src,
 	width: ${metadata.width ?? -1},
 	height: ${metadata.height ?? -1},

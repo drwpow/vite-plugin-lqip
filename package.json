@@ -28,7 +28,6 @@
 	},
 	"dependencies": {
 		"mime": "^3.0.0",
-		"mini-svg-data-uri": "^1.4.4",
 		"sharp": "^0.32.4"
 	},
 	"devDependencies": {
