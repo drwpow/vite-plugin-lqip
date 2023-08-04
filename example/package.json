@@ -1,0 +1,14 @@
+{
+	"name": "@example/vite-plugin-lqip",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite dev",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"vite": "^4.4.8",
+		"vite-plugin-lqip": "file:.."
+	}
+}

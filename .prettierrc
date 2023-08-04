@@ -1,0 +1,6 @@
+{
+	"printWidth": 240,
+	"singleQuote": true,
+	"useTabs": true,
+	"overrides": [{ "files": "*.md", "options": { "printWidth": 80, "useTabs": false } }]
+}

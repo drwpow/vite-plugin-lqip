@@ -1,0 +1,48 @@
+{
+	"name": "vite-plugin-lqip",
+	"description": "Low-quality image placeholder (LQIP) plugin for Vite.",
+	"version": "0.0.1",
+	"author": {
+		"name": "Drew Powers",
+		"email": "drew@pow.rs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/drwpow/vite-plugin-lqip.git"
+	},
+	"type": "module",
+	"main": "./dist/index.js",
+	"scripts": {
+		"build": "del dist && tsc",
+		"changeset": "changeset",
+		"dev": "tsc -w",
+		"lint": "run-p -s lint:*",
+		"lint:js": "eslint \"src/**/*.{js,ts}\"",
+		"lint:prettier": "prettier --check src",
+		"prepublishOnly": "pnpm run build",
+		"test": "run-p -s test:*",
+		"test:ts": "tsc --noEmit",
+		"version": "pnpm run build && changeset version && pnpm i --no-frozen-lockfile"
+	},
+	"dependencies": {
+		"mime": "^3.0.0",
+		"mini-svg-data-uri": "^1.4.4",
+		"sharp": "^0.32.4"
+	},
+	"devDependencies": {
+		"@changesets/changelog-github": "^0.4.8",
+		"@changesets/cli": "^2.26.2",
+		"@types/mime": "^3.0.1",
+		"@types/node": "^20.4.7",
+		"@typescript-eslint/eslint-plugin": "^6.2.1",
+		"@typescript-eslint/parser": "^6.2.1",
+		"del-cli": "^5.0.0",
+		"eslint": "^8.46.0",
+		"eslint-config-prettier": "^8.10.0",
+		"eslint-plugin-prettier": "^5.0.0",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^3.0.1",
+		"typescript": "^5.1.6",
+		"vite": "^4.4.8"
+	}
+}
