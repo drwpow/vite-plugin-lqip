@@ -14,6 +14,7 @@
 	"main": "./dist/index.js",
 	"scripts": {
 		"build": "del dist && tsc",
+		"build:demo": "pnpm run build && cd example && pnpm i && vite build",
 		"changeset": "changeset",
 		"dev": "tsc -w",
 		"lint": "run-p -s lint:*",
