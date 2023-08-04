@@ -111,30 +111,6 @@ export default {
         /** Width of LQIP (⚠️ the higher the number, the slower the page load!) */
         width: 32,
       },
-      sharp: {
-        /** @see https://sharp.pixelplumbing.com/api-output#avif */
-        avif: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#gif */
-        gif: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#avif */
-        heif: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#jp2 */
-        jp2: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#jpeg */
-        jpeg: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#jxl */
-        jxl: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#png */
-        png: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#raw */
-        raw: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#tiff */
-        tiff: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#tile */
-        tile: {},
-        /** @see https://sharp.pixelplumbing.com/api-output#webp */
-        webp: {},
-      },
     }),
   ],
 };

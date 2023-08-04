@@ -19,20 +19,6 @@ export interface LQIPPluginOptions {
 		 */
 		width?: number;
 	};
-	/** Forward options to sharp */
-	sharp?: {
-		avif?: sharp.AvifOptions;
-		gif?: sharp.GifOptions;
-		heif?: sharp.HeifOptions;
-		jp2?: sharp.Jp2Options;
-		jpeg?: sharp.JpegOptions;
-		jxl?: sharp.JxlOptions;
-		png?: sharp.PngOptions;
-		raw?: sharp.RawOptions;
-		tif?: sharp.TiffOptions;
-		tile?: sharp.TileOptions;
-		webp?: sharp.WebpOptions;
-	};
 }
 
 export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
@@ -59,7 +45,7 @@ export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
 				.resize({
 					width: options?.lqip?.width ?? 32,
 				})
-				.toFormat('jpg', {})
+				.toFormat('webp', {})
 				.toBuffer();
 
 			return `import src from '${base}?url';
