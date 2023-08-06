@@ -112,8 +112,8 @@ export default {
       sharp: {
         /** @see https://sharp.pixelplumbing.com/api-resize */
         resize: {
-          width: 64,
-          height: 64,
+          width: 32,
+          height: 32,
           fit: 'inside',
           kernel: sharp.kernel.cubic,
         },
@@ -132,7 +132,7 @@ export default {
 ### Comparisons
 
 - [lqip-modern](https://github.com/transitive-bullshit/lqip-modern/) was originally going to power this plugin as [the results speak for itself](https://transitive-bullshit.github.io/lqip-modern/). However, in my testing, I did find better results with slightly-modified options, so I had to manage sharp myself. But is 99% the same technique, and all credit goes to lqip-modern. Major differences include:
-  - Blurring is baked into the WebP, rather than [lqip-modern requiring CSS blur](https://github.com/transitive-bullshit/lqip-modern/pull/4). Why do more work?
+  - Blurring is baked into the WebP, rather than [lqip-modern requiring CSS blur](https://github.com/transitive-bullshit/lqip-modern/pull/4). _Why do more work than you have to?_
   - This defaults to `32px` previews while lqip-modern defaults to `16px`. I found the higher size to be a dramatic improvement in color without adding significant bytes
   - The `32px` previews, when used as `src`, also are better at keeping the original ratios and reduce layout shift (since images can’t have half-pixel resolutions)
   - vite-plugin-lqip exposes more of sharp’s config than lqip-modern does which allows better customization (with “best as I can do” defaults, of course)
