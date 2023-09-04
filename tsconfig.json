@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
 		"declaration": true,
+		"inlineSourceMap": true,
 		"module": "ESNext",
 		"moduleResolution": "NodeNext",
 		"noUncheckedIndexedAccess": true,
