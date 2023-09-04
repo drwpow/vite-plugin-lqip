@@ -12,6 +12,15 @@
 	},
 	"type": "module",
 	"main": "./dist/index.js",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.js"
+		},
+		"./*": "./*"
+	},
 	"license": "MIT",
 	"keywords": [
 		"lqip",
@@ -26,7 +35,10 @@
 		"performance"
 	],
 	"scripts": {
-		"build": "del dist && tsc",
+		"build": "run-s -s build:clean build:cjs build:esm",
+		"build:clean": "del dist",
+		"build:esm": "tsc",
+		"build:cjs": "tsc -p tsconfig.cjs.json && mv dist/index.js dist/index.cjs",
 		"build:demo": "pnpm run build && cd example && pnpm i && vite build",
 		"changeset": "changeset",
 		"dev": "tsc -w",
@@ -40,22 +52,22 @@
 	},
 	"dependencies": {
 		"mime": "^3.0.0",
-		"sharp": "^0.32.4"
+		"sharp": "^0.32.5"
 	},
 	"devDependencies": {
 		"@changesets/changelog-github": "^0.4.8",
 		"@changesets/cli": "^2.26.2",
 		"@types/mime": "^3.0.1",
-		"@types/node": "^20.4.7",
-		"@typescript-eslint/eslint-plugin": "^6.2.1",
-		"@typescript-eslint/parser": "^6.2.1",
-		"del-cli": "^5.0.0",
-		"eslint": "^8.46.0",
+		"@types/node": "^20.5.9",
+		"@typescript-eslint/eslint-plugin": "^6.6.0",
+		"@typescript-eslint/parser": "^6.6.0",
+		"del-cli": "^5.1.0",
+		"eslint": "^8.48.0",
 		"eslint-config-prettier": "^8.10.0",
 		"eslint-plugin-prettier": "^5.0.0",
 		"npm-run-all": "^4.1.5",
-		"prettier": "^3.0.1",
-		"typescript": "^5.1.6",
-		"vite": "^4.4.8"
+		"prettier": "^3.0.3",
+		"typescript": "^5.2.2",
+		"vite": "^4.4.9"
 	}
 }

@@ -88,6 +88,12 @@ img {
 	font-weight: 600;
 	margin: 0;
 	white-space: nowrap;
+	width: 8rem;
+}
+
+.example-meta dt:first-of-type,
+.example-meta dd:first-of-type {
+	text-align: right;
 }
 
 .example-meta dd {
@@ -95,4 +101,5 @@ img {
 	font-size: 0.875rem;
 	margin: 0;
 	white-space: nowrap;
+	width: 8rem;
 }

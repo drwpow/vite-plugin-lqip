@@ -60,10 +60,10 @@ export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
 			return `import src from '${base}?url';
 
 export default {
-	lqip: \`${lqip}\`,
-	src,
-	width: ${metadata.width ?? -1},
-	height: ${metadata.height ?? -1},
+  lqip: \`${lqip}\`,
+  src,
+  width: ${metadata.width ?? -1},
+  height: ${metadata.height ?? -1},
 };
 			`;
 		},
