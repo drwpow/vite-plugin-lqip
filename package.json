@@ -37,7 +37,7 @@
 	"scripts": {
 		"build": "run-s -s build:clean build:cjs build:esm",
 		"build:clean": "del dist",
-		"build:esm": "tsc -p tsconfig.esm.json",
+		"build:esm": "tsc",
 		"build:cjs": "tsc -p tsconfig.cjs.json && mv dist/index.js dist/index.cjs",
 		"build:demo": "pnpm run build && cd example && pnpm i && vite build",
 		"changeset": "changeset",
