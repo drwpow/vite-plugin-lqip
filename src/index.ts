@@ -2,7 +2,7 @@ import mime from 'mime';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import type { Plugin, UserConfig } from 'vite';
+import type { Plugin } from 'vite';
 
 export interface LQIPPluginOptions {
 	sharp?: {
@@ -22,13 +22,9 @@ export interface LQIPPluginOptions {
 }
 
 export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
-	let viteConfig: UserConfig = {} as unknown as UserConfig;
 	return {
 		name: 'vite-plugin-lqip',
 		enforce: 'pre',
-		configResolved(cfg) {
-			viteConfig = cfg as unknown as UserConfig;
-		},
 		async load(id) {
 			const [base, search] = id.split('?');
 			if (!search) {
@@ -39,7 +35,7 @@ export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
 				return null;
 			}
 
-			const img = sharp(fileURLToPath(new URL(base!, `file://${viteConfig.root}/`)));
+			const img = sharp(fileURLToPath(new URL(`file://${base!}`)));
 			const metadata = await img.metadata();
 			const output = await img
 				.toFormat('webp', {
