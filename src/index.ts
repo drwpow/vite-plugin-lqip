@@ -1,6 +1,5 @@
 import mime from 'mime';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import type { Plugin } from 'vite';
 
