@@ -35,7 +35,7 @@ export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
 				return null;
 			}
 
-			const img = sharp(fileURLToPath(new URL(`file://${base!}`)));
+			const img = sharp(base);
 			const metadata = await img.metadata();
 			const output = await img
 				.toFormat('webp', {
