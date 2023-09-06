@@ -1,7 +1,7 @@
 {
 	"name": "vite-plugin-lqip",
 	"description": "Low-quality image placeholder (LQIP) plugin for Vite.",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"author": {
 		"name": "Drew Powers",
 		"email": "drew@pow.rs"
@@ -47,6 +47,7 @@
 		"lint:prettier": "prettier --check src",
 		"prepublishOnly": "pnpm run build",
 		"test": "run-p -s test:*",
+		"test:build": "cd example && pnpm i && pnpm run build",
 		"test:ts": "tsc --noEmit",
 		"version": "pnpm run build && changeset version && pnpm i --no-frozen-lockfile"
 	},
