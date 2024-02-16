@@ -1,7 +1,7 @@
 {
-	"baseUrl": ".",
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
 		"declaration": true,
 		"inlineSourceMap": true,
 		"module": "NodeNext",
