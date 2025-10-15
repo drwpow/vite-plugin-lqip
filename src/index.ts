@@ -95,7 +95,7 @@ export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
 			const lqip = `data:${mime.getType(path.extname(base!))};base64,${output.toString('base64')}`;
 
 			const vueCode = `
-import { ref, onMounted, h } from 'vue';
+import { h } from 'vue';
 import src from '${base}?url';
 
 export default {
