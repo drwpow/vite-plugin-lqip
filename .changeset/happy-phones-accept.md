@@ -1,5 +1,5 @@
 ---
-'vite-plugin-lqip': patch
+'vite-plugin-lqip': feature
 ---
 
-fixed errors thrown by the fileURLToPath method (#6).
+add 'mode' option to directly return Vue or React component
