@@ -18,6 +18,48 @@ export interface LQIPPluginOptions {
 		 */
 		blur?: number;
 	};
+	/**
+	 * Controls the output mode of the LQIP plugin.
+	 *
+	 * - `"data"` (default):
+	 *   Returns a simple object containing the low-quality placeholder (`lqip`),
+	 *   the original image URL (`src`), and metadata (width, height).
+	 *   ```ts
+	 *   import img from './example.jpg?lqip';
+	 *   console.log(img); // { lqip, src, width, height }
+	 *   ```
+	 *
+	 * - `"vue"`:
+	 *   Returns a ready-to-use Vue component that displays a blurred placeholder
+	 *   and smoothly transitions to the full image when it loads.
+	 *   ```vue
+	 *   <script setup lang="ts">
+	 *   import LQIP from './example.jpg?lqip';
+	 *   </script>
+	 *
+	 *   <template>
+	 *     <LQIP />
+	 *   </template>
+	 *   ```
+	 *
+	 * - `"react"`:
+	 *   Returns a React functional component that provides the same effect:
+	 *   a blurred low-quality placeholder that fades into the original image.
+	 *   ```tsx
+	 *   import LQIP from './example.jpg?lqip';
+	 *
+	 *   export default function App() {
+	 *     return <LQIP />;
+	 *   }
+	 *   ```
+	 *
+	 * **Priority rule:**
+	 * If the import path explicitly includes `?vue` or `?react`,
+	 * that mode takes precedence over the global `mode` option.
+	 *
+	 * @default "data"
+	 */
+	mode?: 'data' | 'vue' | 'react';
 }
 
 export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
@@ -51,6 +93,52 @@ export default function vitePluginLqip(options?: LQIPPluginOptions): Plugin {
 				})
 				.toBuffer();
 			const lqip = `data:${mime.getType(path.extname(base!))};base64,${output.toString('base64')}`;
+
+			const vueCode = `
+import { ref, onMounted, h } from 'vue';
+import src from '${base}?url';
+
+export default {
+  name: 'LQIPImage',
+  setup() {
+    return () =>
+      h('img', {
+        src,
+        width: ${metadata.width ?? -1},
+        height: ${metadata.height ?? -1},
+        style: {
+					backgroundImage: 'url("${lqip}")',
+					backgroundSize: 'cover'
+        },
+      });
+  },
+};
+				`;
+			const reactCode = `
+import React from 'react';
+import src from '${base}?url';
+
+export default function LQIPImage() {
+  return React.createElement('img', {
+    src,
+    width: ${metadata.width ?? -1},
+    height: ${metadata.height ?? -1},
+    style: {
+      backgroundImage: \`url("${lqip}")\`,
+      backgroundSize: 'cover'
+    },
+  });
+}`;
+
+			if (s.has('vue')) {
+				return vueCode;
+			} else if (s.has('react')) {
+				return reactCode;
+			} else if (options?.mode === 'vue') {
+				return vueCode;
+			} else if (options?.mode === 'react') {
+				return reactCode;
+			}
 
 			return `import src from '${base}?url';
 

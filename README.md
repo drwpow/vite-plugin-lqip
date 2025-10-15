@@ -43,6 +43,18 @@ declare module '*?lqip' {
   };
   export default lqip;
 }
+// Vue mode
+declare module '*?lqip&vue' {
+  import type { DefineComponent } from 'vue';
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+// React mode
+declare module '*?lqip&react' {
+  import type { FC, ImgHTMLAttributes } from 'react';
+  const component: FC<ImgHTMLAttributes<HTMLImageElement>>;
+  export default component;
+}
 ```
 
 ## Usage
@@ -78,6 +90,61 @@ import lqip from './path/to/image.jpg?lqip';
 ```
 
 > 💡 Tip: set `width` and `height` on images [to prevent layout shifts](https://www.smashingmagazine.com/2020/03/setting-height-width-images-important-again/)
+
+### Using Vue / React Components
+
+You can now directly import a Vue or React component in two ways:
+
+1. Query parameter (per-import):
+
+```ts
+// Vue
+import LQIP from './path/to/image.jpg?lqip&vue';
+
+// React
+import LQIP from './path/to/image.jpg?lqip&react';
+```
+
+2. Global mode option (applied to all imports without a query):
+
+```ts
+// vite.config.ts
+import lqip from 'vite-plugin-lqip';
+
+export default {
+  plugins: [
+    lqip({
+      mode: 'vue', // or 'react'
+    }),
+  ],
+};
+```
+> 💡 Tip: query parameters (&vue / &react) always take precedence over the global mode option.
+
+#### Vue Example
+```vue
+<script setup lang="ts">
+import LQIPImage from './path/to/image.jpg?lqip&vue';
+</script>
+
+<template>
+  <LQIPImage />
+</template>
+```
+
+#### React Example
+```tsx
+import React from 'react';
+import LQIPImage from './path/to/image.jpg?lqip&react';
+
+export default function App() {
+  return (
+    <div style={{ width: 400 }}>
+      <LQIPImage />
+    </div>
+  );
+}
+```
 
 ### Optimizing with vite-imagetools
 
