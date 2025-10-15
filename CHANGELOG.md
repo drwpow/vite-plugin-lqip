@@ -1,5 +1,17 @@
 # vite-plugin-lqip
 
+## 0.0.5
+
+### Patch Changes
+
+- [#11](https://github.com/drwpow/vite-plugin-lqip/pull/11) [`2bbe73f`](https://github.com/drwpow/vite-plugin-lqip/commit/2bbe73f6258aea403bfb41682c2a67b322b304e2) Thanks [@drwpow](https://github.com/drwpow)! - Bump deps
+
+## 0.0.4
+
+### Patch Changes
+
+- [`e76ddbf06b5140e6819359de7d17bc111d682164`](https://github.com/drwpow/vite-plugin-lqip/commit/e76ddbf06b5140e6819359de7d17bc111d682164) Thanks [@drwpow](https://github.com/drwpow)! - Update to Vite 5
+
 ## 0.0.3
 
 ### Patch Changes
