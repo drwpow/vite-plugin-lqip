@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-lqip",
   "description": "Low-quality image placeholder (LQIP) plugin for Vite.",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"

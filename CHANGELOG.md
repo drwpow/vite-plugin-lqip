@@ -1,5 +1,11 @@
 # vite-plugin-lqip
 
+## 0.1.0
+
+### Minor Changes
+
+- [#16](https://github.com/drwpow/vite-plugin-lqip/pull/16) [`7dcf8c7`](https://github.com/drwpow/vite-plugin-lqip/commit/7dcf8c73ce264ae7f88530a5cd6e07062b2d51f6) Thanks [@phk422](https://github.com/phk422)! - add 'mode' option to directly return Vue or React component
+
 ## 0.0.5
 
 ### Patch Changes
