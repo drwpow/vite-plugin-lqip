@@ -93,7 +93,7 @@ import lqip from './path/to/image.jpg?lqip';
 
 ### Using Vue / React Components
 
-You can now directly import a Vue or React component in two ways:
+You can directly import a Vue or React component in two ways:
 
 1. Query parameter (per-import):
 
